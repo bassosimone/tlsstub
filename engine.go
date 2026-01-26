@@ -25,9 +25,13 @@ type TLSEngine interface {
 }
 
 // FuncTLSEngine allows to mock any [TLSEngine] implementation.
-type FuncTLSEngine struct {
+//
+// The type parameter T specifies the return type of the Client method.
+// This allows FuncTLSEngine to satisfy TLSEngine interfaces from different
+// packages that define their own TLSConn type.
+type FuncTLSEngine[T any] struct {
 	// ClientFunc builds a new client TLSConn.
-	ClientFunc func(conn net.Conn, config *tls.Config) TLSConn
+	ClientFunc func(conn net.Conn, config *tls.Config) T
 
 	// NameFunc returns the engine name.
 	NameFunc func() string
@@ -36,22 +40,22 @@ type FuncTLSEngine struct {
 	ParrotFunc func() string
 }
 
-var _ TLSEngine = &FuncTLSEngine{}
+var _ TLSEngine = &FuncTLSEngine[TLSConn]{}
 
 // Client implements [TLSEngine].
-func (fe *FuncTLSEngine) Client(conn net.Conn, config *tls.Config) TLSConn {
+func (fe *FuncTLSEngine[T]) Client(conn net.Conn, config *tls.Config) T {
 	runtimex.Assert(fe.ClientFunc != nil)
 	return fe.ClientFunc(conn, config)
 }
 
 // Name implements [TLSEngine].
-func (fe *FuncTLSEngine) Name() string {
+func (fe *FuncTLSEngine[T]) Name() string {
 	runtimex.Assert(fe.NameFunc != nil)
 	return fe.NameFunc()
 }
 
 // Parrot implements [TLSEngine].
-func (fe *FuncTLSEngine) Parrot() string {
+func (fe *FuncTLSEngine[T]) Parrot() string {
 	runtimex.Assert(fe.ParrotFunc != nil)
 	return fe.ParrotFunc()
 }
