@@ -3,7 +3,7 @@ module github.com/bassosimone/tlsstub
 go 1.25.5
 
 require (
-	github.com/bassosimone/netstub v0.0.0-20260122214332-4e68c49ba4df
+	github.com/bassosimone/netstub v0.0.0-20260215140819-e5f4b4b48997
 	github.com/bassosimone/runtimex v0.0.0-20260108162100-336f3823f6b7
 	github.com/stretchr/testify v1.11.1
 )
