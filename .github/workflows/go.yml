@@ -13,6 +13,7 @@ jobs:
         goversion:
           - "1.25"
           - "1.26"
+          - "1.27"
 
     runs-on: ubuntu-latest
     steps:
@@ -37,7 +38,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v7
         with:
-          go-version: "1.26"
+          go-version: "1.27"
 
       - name: Measure Coverage
         run: go test -short -covermode=atomic -coverprofile=coverage.out ./...
