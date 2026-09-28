@@ -44,10 +44,10 @@ func TestFuncTLSConn(t *testing.T) {
 			SetDeadlineFunc: func(time.Time) error {
 				return wantErr
 			},
-			SetReadDeadFunc: func(time.Time) error {
+			SetReadDeadlineFunc: func(time.Time) error {
 				return wantErr
 			},
-			SetWriteDeaFunc: func(time.Time) error {
+			SetWriteDeadlineFunc: func(time.Time) error {
 				return wantErr
 			},
 		},

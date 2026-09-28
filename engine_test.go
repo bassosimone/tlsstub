@@ -30,10 +30,10 @@ func TestFuncTLSEngine(t *testing.T) {
 			SetDeadlineFunc: func(time.Time) error {
 				return nil
 			},
-			SetReadDeadFunc: func(time.Time) error {
+			SetReadDeadlineFunc: func(time.Time) error {
 				return nil
 			},
-			SetWriteDeaFunc: func(time.Time) error {
+			SetWriteDeadlineFunc: func(time.Time) error {
 				return nil
 			},
 		},
@@ -126,12 +126,12 @@ func (c *foreignMockTLSConn) HandshakeContext(ctx context.Context) error {
 func TestFuncTLSEngineWithForeignInterface(t *testing.T) {
 	mockConn := &foreignMockTLSConn{
 		FuncConn: &netstub.FuncConn{
-			CloseFunc:       func() error { return nil },
-			LocalAddrFunc:   func() net.Addr { return &net.TCPAddr{} },
-			RemoteAddrFunc:  func() net.Addr { return &net.TCPAddr{} },
-			SetDeadlineFunc: func(time.Time) error { return nil },
-			SetReadDeadFunc: func(time.Time) error { return nil },
-			SetWriteDeaFunc: func(time.Time) error { return nil },
+			CloseFunc:            func() error { return nil },
+			LocalAddrFunc:        func() net.Addr { return &net.TCPAddr{} },
+			RemoteAddrFunc:       func() net.Addr { return &net.TCPAddr{} },
+			SetDeadlineFunc:      func(time.Time) error { return nil },
+			SetReadDeadlineFunc:  func(time.Time) error { return nil },
+			SetWriteDeadlineFunc: func(time.Time) error { return nil },
 		},
 		connectionState: tls.ConnectionState{Version: tls.VersionTLS13},
 	}
